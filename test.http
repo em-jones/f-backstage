@@ -1,0 +1,7 @@
+POST https://dev.azure.com/foleytfs/_apis/search/codesearchresults?api-version=6.0-preview.1
+ContentType: application/json
+Authorization: Basic wah5ufchctad7hc4fr7essnwweefud7wuisf7njwzeaiycurvz2q 
+
+{
+  "searchText": "path:test repo:platform proj:platform"
+}

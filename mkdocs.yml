@@ -1,0 +1,15 @@
+site_name: 'Service Catalog'
+nav:
+  - Home: index.md
+  - 'Software Catalog': software-catalog.md
+  - 'Tech Docs': techdocs.md
+  - 'Tech Radar': tech-radar.md
+  - 'Dev Portal': dev-portal.md
+plugins:
+  - techdocs-core
+  - kroki
+markdown_extensions:
+  - footnotes
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.details

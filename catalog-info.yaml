@@ -1,0 +1,114 @@
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ejones
+spec:
+  memberOf: [platform]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform
+  description: The platform team
+spec:
+  type: product-area
+  profile:
+    displayName: Flatform
+    email: platform@foleyservices.com
+  members: [ejones]
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: platform
+  description: Thing upon which Foley is built
+spec:
+  owner: platform
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata: 
+  name: developer-toolkit
+  description: The starting point for all things Foley
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/adr-location: docs/adrs
+spec:
+  owner: platform
+  domain: platform
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: catalog-api
+  description: Retrieve Backstage Entities
+spec: |
+  openapi: "3.0.0"
+  info:
+    version: 1.0.0
+    title: Catalog API
+    license:
+      name: Foley
+  servers:
+    - url: https://backstage.io/v1
+  paths:
+  /entities:
+    get:
+      summary: list all entities
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: developer-portal
+spec:
+  type: website
+  lifecycle: experimental
+  owner: platform
+  system: developer-toolkit
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tech-radar
+spec:
+  type: website
+  lifecycle: experimental
+  owner: platform
+  subcomponentOf: developer-portal
+  system: developer-toolkit
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: software-catalog
+spec:
+  type: website
+  lifecycle: experimental
+  owner: platform
+  system: developer-toolkit
+  subcomponentOf: developer-portal
+  providesApi: [catalog-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: techdocs
+spec:
+  type: website
+  lifecycle: experimental
+  owner: platform
+  subcomponentOf: developer-portal
+  providesApi: [catalog-api]
+  system: developer-toolkit
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: infrastructure-platform
+  description: The starting point for all things Foley
+spec:
+  owner: platform
+  domain: platform
